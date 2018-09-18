@@ -1,0 +1,9 @@
+{
+  "galaxy.meteor.com": {
+    "env": {
+      "MONGO_URL": "mongodb://simans:simansdbadmin92@ds141942.mlab.com:41942/psi"
+    }
+  },
+  "public": {},
+  "private": {}
+}

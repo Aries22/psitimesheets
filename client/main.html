@@ -1,0 +1,170 @@
+<head>
+  <title>Nigeria : PSI Timesheets</title>
+  <link rel="stylesheet" href="https://unpkg.com/blaze-css@x.x.x/dist/blaze.min.css">
+</head>
+<body>
+
+<img src="logo.png" height="100" width="100">{{> loginButtons}}
+
+
+
+{{>display}}
+
+
+
+
+
+
+</body>
+
+<template name="searchBox">
+    {{> EasySearch.Input index=staffIndex }}
+    <ul>
+        {{#EasySearch.Each index=staffIndex }}
+            <li>
+              <b>{{createdAt}}</b><br>
+              staffEmail: {{username}}<br>
+                      {{month}}<br>
+                      {{week}}<br>
+                      {{day}}<br>
+                      {{hours}}<br>
+                      {{approval}}
+            </li><br>
+                    <button type="button" class="approved">APPROVE</button>
+                    <button type="button" class="decline">DECLINE</button>
+        {{/EasySearch.Each}}
+    </ul>
+</template>
+
+<template name = "display">
+
+{{#if currentUser}}
+<div class="container">
+                {{>eachBlock}}
+                <br><br>
+                 {{>supervisor}}
+                 {{>entries}}
+
+
+
+</div>
+{{/if}}
+</template>
+
+<template name="supervisor">
+  {{#if isAdmin}}
+  <div aria-hidden class="c-overlay c-overlay--visible"></div>
+<div role="dialog" class="o-modal o-modal--full o-modal--visible">
+  <div class="c-card">
+    <header class="c-card__header">
+      <button type="button" class="c-button c-button--close">&times;</button>
+      <h2 class="c-heading">Administrative Dashboard</h2>
+        {{>loginButtons}}
+    </header>
+
+    <div class="c-card__body">
+    {{>searchBox}}
+</div>
+    <footer class="c-card__footer">
+      <span class="c-badge c-badge--rounded c-badge--ghost c-badge--success">Nigeria : PSI Timesheets</span>
+    </footer>
+  </div>
+</div>
+
+  {{/if}}
+</template>
+
+<template name="entries">
+  <div role="alert" class="c-alert c-alert--brand">
+  <button class="c-button c-button--close">&times;</button>
+  Recent Activities
+</div>
+<div class="o-panel-container" style="height: 500px">
+  <div class="o-panel">
+  {{#each entries}}
+  <li class="{{#if checked}}checked{{/if}}">
+<button class="delete">&times;</button>
+
+<input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+<b>{{createdAt}}</b><br>
+        {{month}}<br>
+        {{week}}<br>
+        {{day}}<br>
+        {{hours}}<br>
+        {{funding}}
+        {{activity}}
+      <b>Approval: </b> {{approval}}
+      </li>
+      {{/each}}
+</div>
+</div>
+</template>
+
+<template name="eachBlock">
+
+    <div role="tablist" class="c-tabs">
+      <div class="c-tabs__nav">
+        <div class="c-tabs__headings">
+          <button role="tab" class="c-tab-heading c-tab-heading--active c-tab-heading--info">Payroll Timesheet</button>
+          <button role="tab" class="c-tab-heading c-tab-heading--active c-tab-heading--warning">Print Payslip</button>
+          <button role="tab" class="c-tab-heading c-tab-heading--active c-tab-heading--success">Messages</button>
+        </div>
+      </div>
+    </div>
+
+<form class="new-task">
+
+  <select name="month" class="c-field">
+    <option>January</option>
+    <option>February</option>
+    <option>March</option>
+    <option>April</option>
+    <option>May</option>
+    <option>June</option>
+    <option>July</option>
+    <option>August</option>
+    <option>September</option>
+    <option>October</option>
+    <option>November</option>
+    <option>December</option>
+  </select>
+
+  <select  name="week" class="c-field">
+    <option>WEEK 1</option>
+    <option>WEEK 2</option>
+    <option>WEEK 3</option>
+    <option>WEEK 4</option>
+  </select>
+
+  <select name="day" class="c-field">
+    <option>Monday</option>
+    <option>Tuesday</option>
+    <option>Wednesday</option>
+    <option>Thursday</option>
+    <option>Friday</option>
+    <option>Saturday</option>
+    <option>Sunday</option>
+    <option>Public Holiday</option>
+    <option>Office Closing</option>
+    <option>Sick Leave</option>
+    <option>Vacation</option>
+  </select>
+
+  <select name="hours" class="c-field">
+    <option>1 Hour</option>
+    <option>2 Hours</option>
+    <option>3 Hours</option>
+    <option>4 Hours</option>
+    <option>5 Hours</option>
+    <option>6 Hours</option>
+    <option>7 Hours</option>
+    <option>8 Hours</option>
+  </select>
+
+  <input class="c-field u-super" name="funding" placeholder="Funding Source" type="text">
+  <input class="c-field u-super" name="activity" placeholder="Activity Code" type="text">
+  <button onclick="new-task" type="submit" class="c-button c-button--success">SUBMIT ENTRY</button><br>
+
+</form>
+
+</template>
