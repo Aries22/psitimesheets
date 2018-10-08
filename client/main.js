@@ -80,6 +80,8 @@ Template.eachBlock.events({
     const day = target.day.value;
     const hours = target.hours.value;
     const funding = target.funding.value;
+    const leave = target.leave.value;
+    const administrator = target.administrator.value;
     const activity = target.activity.value;
     const approval = "pending ...";
 
@@ -91,6 +93,8 @@ Template.eachBlock.events({
       hours,
       funding,
       activity,
+      leave,
+      administrator,
       approval,
       createdAt: new Date(), // current time
       owner: Meteor.userId(),
@@ -103,6 +107,8 @@ Template.eachBlock.events({
     target.week.value = '';
     target.day.value = '';
     target.hours.value = '';
+    target.leave.value = '';
+    target.administrator.value = '';
   },
 });
 Template.searchBox.events({
@@ -113,7 +119,7 @@ Template.searchBox.events({
     });
   },
   'click .decline'() {
-    //Decline sinngle entry
+    //Decline single entry
     Entries.update(this._id, {
       $set: { approval: "DECLINED" },
     });
