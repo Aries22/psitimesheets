@@ -16,6 +16,17 @@ Template.searchBox.helpers({
   staffIndex: () => StaffIndex,
 });
 
+const StaffIndex2 = new Index({
+  collection: Entries,
+  fields: ['administrator'],
+  engine: new MinimongoEngine(),
+})
+
+Template.searchBox2.helpers({
+  staffIndex: () => StaffIndex,
+});
+
+
 Template.entries.events({
   'click .toggle-checked'() {
     // Set the checked property to the opposite of its current value
@@ -48,6 +59,13 @@ Template.supervisor.helpers({
     }
     return result;
   },
+  isSuper() {
+    result2 = false;
+    if (Meteor.user().username === "supervisor1" || Meteor.user().username == "supervisor2" || Meteor.user().username == "supervisor3" | Meteor.user().username === "supervisor4" || Meteor.user().username === "supervisor5" || Meteor.user().username === "supervisor6"){
+      result2 = true;
+  }
+  return result2;
+},
 });
 
 Template.supervisor.events({
@@ -108,7 +126,6 @@ Template.eachBlock.events({
     target.day.value = '';
     target.hours.value = '';
     target.leave.value = '';
-    target.administrator.value = '';
   },
 });
 Template.searchBox.events({

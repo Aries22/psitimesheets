@@ -28,3 +28,6 @@ jquery
 mrt:jquery-ui
 alanning:roles
 easy:search
+easysearch:components
+useraccounts:core
+useraccounts:unstyled

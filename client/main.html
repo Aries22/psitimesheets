@@ -4,7 +4,12 @@
 </head>
 <body>
 
-<img src="logo.png" height="100" width="100">{{> loginButtons}}
+<img src="logo.png" height="100" width="100">
+{{> loginButtons align="right"}}
+
+
+
+
 
 
 
@@ -17,8 +22,11 @@
 
 </body>
 
-<template name="searchBox">
+<template name="searchBox2">
+
+
     {{> EasySearch.Input index=staffIndex }}
+
     <ul>
         {{#EasySearch.Each index=staffIndex }}
             <li>
@@ -28,11 +36,51 @@
                       {{week}}<br>
                       {{day}}<br>
                       {{hours}}<br>
-                      {{approval}}
+                      {{approval}}<br>
             </li><br>
-                    <button type="button" class="approved">APPROVE</button>
-                    <button type="button" class="decline">DECLINE</button>
+                    <button type="button" class="approved c-button c-button--ghost-success">APPROVE</button>
+
+                    <button type="button" class="decline c-button c-button--ghost-error">DECLINE</button><br>
         {{/EasySearch.Each}}
+        {{> EasySearch.Pagination index=staffIndex maxPages=10}}
+
+
+
+   {{#EasySearch.IfNoResults index=staffIndex}}
+     <div class="no-results">No results found!</div>
+   {{/EasySearch.IfNoResults}}
+    </ul>
+</template>
+<template name="searchBox">
+
+
+    {{> EasySearch.Input index=staffIndex }}
+
+    <ul>
+        {{#EasySearch.Each index=staffIndex }}
+            <li>
+              <b>{{createdAt}}</b><br>
+              staffEmail: {{username}}<br>
+                      {{month}}<br>
+                      {{week}}<br>
+                      {{day}}<br>
+                      {{hours}}<br>
+                      {{approval}}<br>
+                      {{funding}}<br>
+                      {{activity}}<br>
+                      {{administrator}}<br>
+            </li><br>
+                    <button type="button" class="approved c-button c-button--ghost-success">APPROVE</button>
+
+                    <button type="button" class="decline c-button c-button--ghost-error">DECLINE</button><br>
+        {{/EasySearch.Each}}
+        {{> EasySearch.Pagination index=staffIndex maxPages=10}}
+
+
+
+   {{#EasySearch.IfNoResults index=staffIndex}}
+     <div class="no-results">No results found!</div>
+   {{/EasySearch.IfNoResults}}
     </ul>
 </template>
 
@@ -57,14 +105,41 @@
 <div role="dialog" class="o-modal o-modal--full o-modal--visible">
   <div class="c-card">
     <header class="c-card__header">
-      <button type="button" class="c-button c-button--close">&times;</button>
-      <h2 class="c-heading">Administrative Dashboard</h2>
-        {{>loginButtons}}
+      <button type="button" class="c-button c-button--close">{{> loginButtons}}</button>
+      <h2 class="c-heading">Admin Dashboard</h2>
+
     </header>
+
+  <br>
 
     <div class="c-card__body">
     {{>searchBox}}
+
 </div>
+    <footer class="c-card__footer">
+      <span class="c-badge c-badge--rounded c-badge--ghost c-badge--success">Nigeria : PSI Timesheets</span>
+    </footer>
+  </div>
+</div>
+
+  {{/if}}
+
+  {{#if isSuper}}
+  <div aria-hidden class="c-overlay c-overlay--visible"></div>
+<div role="dialog" class="o-modal o-modal--full o-modal--visible">
+  <div class="c-card">
+    <header class="c-card__header">
+      <button type="button" class="c-button c-button--close">{{>loginButtons}}</button>
+      <h2 class="c-heading">Supervisor Dashboard</h2>
+
+    </header>
+  <br>
+
+    <div class="c-card__body">
+    {{>searchBox2}}
+  </div>
+
+
     <footer class="c-card__footer">
       <span class="c-badge c-badge--rounded c-badge--ghost c-badge--success">Nigeria : PSI Timesheets</span>
     </footer>
@@ -92,9 +167,10 @@
         {{day}}<br>
         {{leave}}<br>
         {{hours}}<br>
-        {{funding}}
-        {{activity}}
-      <b>Approval: </b> {{approval}}
+        {{funding}}<br>
+        {{activity}}<br>
+        {{administrator}}
+      <b>Approval: </b> <span class="c-badge c-badge--rounded c-badge--ghost c-badge--success">{{approval}}</span>
       </li>
       {{/each}}
 </div>
@@ -148,20 +224,21 @@
   </select>
 
 <select name="leave" class="c-field">
-  <option>Public Holiday</option>
+  <option>Working Hours</option>
   <option>Office Closing</option>
   <option>Sick Leave</option>
   <option>Vacation</option>
   <option>Annual leave</option>
+  <option>Public Holiday</option>
 </select>
 
 <select name="administrator" class="c-field">
-  <option>supervisor 1</option>
-  <option>supervisor 2</option>
-  <option>supervisor 3</option>
-  <option>supervisor 4</option>
-  <option>supervisor 5</option>
-  <option>supervisor 6</option>
+  <option>supervisor1</option>
+  <option>supervisor2</option>
+  <option>supervisor3</option>
+  <option>supervisor4</option>
+  <option>supervisor5</option>
+  <option>supervisor6</option>
 </select>
 
   <select name="hours" class="c-field">
