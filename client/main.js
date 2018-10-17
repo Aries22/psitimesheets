@@ -143,3 +143,18 @@ Template.searchBox.events({
   },
 
 });
+Template.searchBox2.events({
+  'click .approved'() {
+    // Approve Entry
+    Entries.update(this._id, {
+      $set: { approval: "APPROVED" },
+    });
+  },
+  'click .decline'() {
+    //Decline single entry
+    Entries.update(this._id, {
+      $set: { approval: "DECLINED" },
+    });
+  },
+
+});
